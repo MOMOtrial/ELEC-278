@@ -1,0 +1,48 @@
+#include <stdio.h>
+
+// we declare a variable by writing its type followed by its name:
+int total; // An integer variable named 'total'
+char first_initial; // A character variable
+int numbers[10]; // An array of 10 numbers
+
+typedef char digit;
+struct tax_info {
+    int sin[9];
+    int date_of_birth[8];
+    int date_of_death[8];
+    int marital_status;
+};
+
+struct tax_info my_tax_info;
+
+// --------------------------------------
+typedef char digit;
+
+// Numeric values match T1 form
+enum marital {
+    MARRIED = 1;
+    COMMON_LAW = 2;
+    WIDOW = 3;
+    DIVORCED = 4;
+    SEPERATED = 5;
+    SINGLE = 6;
+};
+
+struct numeric_date {
+    digit year[4];
+    digit month[2];
+    digit day[2];
+};
+
+struct tax_info {
+    // Social insurance number
+    digit sin[9];
+    // Always a valid date.
+    struct numeruic_date date_of_birth;
+    // Always a valid date, or all zeros if empty.
+    struct numeruic_date date_of_death;
+    // Always a valid enum value
+    enum marital marital_status;
+};
+
+struct tax_info my_tax_info;
