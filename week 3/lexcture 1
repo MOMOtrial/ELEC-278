@@ -1,0 +1,135 @@
+void *malloc(size_t size); // allocaters size bytes pf memory (finds how many consecutive bnoxes that are free and reserves them)
+void free(void *ptr); // frees a previously allocated block of memory
+
+// Appends a number to the end of a list
+void append(list *nums, int num) {
+    // Construct a new node to go at the end of the list
+    struct list_node new_node = {
+        .value = num,
+        .tail = NULL,
+    };
+    
+    // Place the new node in dynamically allocated memory:
+    list new_tail = malloc(sizeof(struct list_node));
+    *new_tail = new_node;
+
+    // Traverse the list until we get to the end.
+    while (*nums != NULL) {
+        nums = &(*nums)->tail;
+    }
+    // nums now points to the last tail slot, where we need to put the pointer to new node.
+    *nums = new_tail;
+
+};
+
+
+
+
+
+// Remove first element from list, storing it in 'out'
+// Returns false (and leaves 'out' unmodified) if the list is empty
+bool remove_front(list *nums, int *out){
+    //Check if the list is empty
+    if (*nums == NULL) {
+        return false;
+    }
+    
+    // Extract the first element
+    list old_front = *nums:
+    *out = old_front->value;
+
+    // Remove and free the first node.
+    *nums = old_front->tail;
+    free(old_front);
+    return true;
+}
+
+
+// Insert a number at a given index in a list
+void insert_at(list *nums, size_t index, int num) {
+    // Construct a new node to splice into the list.
+    struct list_node *new_node = malloc(sizeof(struct list_node));
+    new_node->value = num;
+
+    // Traverse the list until we get to the desired index.
+    for (size_t i = 0; i < index; i++) {
+        nums = &(*nums)->tail;
+    }
+
+    // 'nums' now points to the 'tail' slot where we need to insert the node.
+    new_node->tail = *nums;
+    *nums = new_node;
+}
+
+
+
+// Remove the element at a given index in a list
+// Returns false if it was not possible (list was to short)
+bool remove_at(list *nums, size_t index) {
+    // Traverse the list until we get to the desired index
+    for (size_t i = 0; i < index; i++) {
+        if (*nums == NULL) {
+            return false;
+        }
+        nums = &(*nums)->tail;
+    }
+
+    // Make sure the node there exists
+    if (*nums == NULL) {
+        return false;
+    }
+    
+    // 'nums' now points to the 'tail' slot where we need to remove the node
+    struct list_node *old_node = *nums;
+    *nums = old_node->tail;
+    free(old_node);
+    return true;
+}
+
+// Finds the index of a given value in a list
+// Returns false if thje value is not present in the list
+bool index_of(list nums, int target, size_t *out) {
+    // Traverse the list until we see the target value
+    for (size_t i = 0; nums != NULL; i++) {
+        if (nums->value == target) {
+            *out = i;
+            return true;
+        }
+        nums = nums->tail;
+    }
+
+    //we reached end of list without finding target value
+    return false;
+}
+
+
+
+// Replaces the value at the given index in a list
+// Returns false if the value is not present in the list
+bool replace_at(list nums, size_t index, int new_num) {
+    //Traverse the list until we get to the desired index
+    for (size_t i = 0; i < index; i++) {
+        if (nums == NULL) {
+            return false;
+        }
+        nums = nums->tail;
+    }
+
+    // Make sure the node there exists
+    if (nums==NULL) {
+        return false;
+    }
+    // 'nums' now points to the node we need to change the value of
+    nums->value = new_num;
+    return true;
+}
+
+
+
+
+
+
+
+
+
+
