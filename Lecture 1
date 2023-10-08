@@ -5,6 +5,7 @@ int total; // An integer variable named 'total'
 char first_initial; // A character variable
 int numbers[10]; // An array of 10 numbers
 
+// Unlike an array, a structure can contain many different data types (int, float, char, etc.).
 typedef char digit;
 struct tax_info {
     int sin[9];
