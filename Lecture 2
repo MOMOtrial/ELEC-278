@@ -64,3 +64,63 @@ void append(list *nums, int num) {
 
     *nums = &new_node;
 }
+
+// works 
+
+struct list_node {
+    int value;
+    struct list_node* tail;
+};
+
+typedef struct list_node* list;
+
+// Function to calculate the length of the list
+int list_length(list nums) {
+    int length = 0;
+    while (nums != NULL) {
+        length++;
+        nums = nums->tail;
+    }
+    return length;
+}
+
+// Function to append an element to the end of the list
+void append(list *nums, int num) {
+    // Construct a new node to go at the end of the list
+    struct list_node* new_node = (struct list_node*)malloc(sizeof(struct list_node));
+    new_node->value = num;
+    new_node->tail = NULL;
+
+    // If the list is empty, update the list pointer
+    if (*nums == NULL) {
+        *nums = new_node;
+    } else {
+        // Traverse the list until we get to the end.
+        list current = *nums;
+        while (current->tail != NULL) {
+            current = current->tail;
+        }
+        // 'current' now points to the last 'tail' slot, where we need to put the pointer to the new node.
+        current->tail = new_node;
+    }
+}
+
+int main() {
+    list numbers = NULL;
+
+    // Append elements to the list
+    append(&numbers, 1);
+    append(&numbers, 2);
+    append(&numbers, 3);
+
+    printf("Length: %d\n", list_length(numbers));
+
+    // Don't forget to free the memory when you are done with the list
+    while (numbers != NULL) {
+        list temp = numbers;
+        numbers = numbers->tail;
+        free(temp);
+    }
+
+    return 0;
+}
