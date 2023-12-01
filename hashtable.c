@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+// Max number of items you can store before a collision (2 keys are diff but hash to same slot)
 #define TABLE_SIZE 20000
 
 typedef struct entry_t {
